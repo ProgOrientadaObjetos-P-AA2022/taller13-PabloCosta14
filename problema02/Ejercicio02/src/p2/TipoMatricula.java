@@ -5,6 +5,7 @@
  */
 package p2;
 
+import java.util.ArrayList;
 import p1.MatriculaCampamento;
 import p1.MatriculaColegio;
 
@@ -13,37 +14,49 @@ import p1.MatriculaColegio;
  * @author reroes
  */
 public class TipoMatricula {
+    
     private double promedioMatriculas;
     private MatriculaCampamento campamento;
     private MatriculaColegio colegio;
+    private ArrayList<Matricula> matriculas;
     // private MatriculaEscuela escuela;
     // private MatriculaJardin jardin;
     // private MatriculaMaternal maternal;
     // private MatriculaMaternal maternal2;
-    
-    public void establecerMatriculaCampamento(MatriculaCampamento c){
-        campamento = c;
+
+    public void establecerMatriculas(ArrayList<Matricula> n) {
+        matriculas = n;
     }
     
-    public void establecerMatriculaColegio(MatriculaColegio c){
-        colegio = c;
+    public ArrayList<Matricula> obtenerMatriculas() {
+        
+        return matriculas;
     }
     
-    public MatriculaCampamento obtenerMatriculaCampamento(){
-        return campamento;
-    }
-    
-    public MatriculaColegio obtenerMatriculaColegio(){
-        return colegio;
-    }
-    
-    public void establecerPromedioTarifas(){
-        promedioMatriculas = (obtenerMatriculaCampamento().obtenerTarifa() + 
-                obtenerMatriculaColegio().obtenerTarifa())/2;
+    public void establecerPromedioTarifas() {
+        
+        double s = 0;
+        for (int i = 0; i < matriculas.size(); i++) {
+            s = s + matriculas.get(i).obtenerTarifa();
+            
+        }
+        promedioMatriculas = s / matriculas.size();
         
     }
     
-    public double obtenerPromedioTarifas(){
+    public double obtenerPromedioTarifas() {
         return promedioMatriculas;
+    }
+    
+    @Override
+    public String toString() {
+        String cadena = "\n";
+        for (int i = 0; i < matriculas.size(); i++) {
+            System.out.println(matriculas.get(i));
+        }
+        cadena = String.format("El promedio de tarifas es: %.2f",
+                obtenerPromedioTarifas());
+        
+        return cadena;
     }
 }
